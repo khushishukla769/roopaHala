@@ -1,0 +1,1 @@
+import{b as o}from"./index.ad66e502.js";import{U as i}from"./UserMovieSection.644545fa.js";import"./MoviePopUp.ff6558bd.js";import"./useUpdateLikedMovies.f1d8496e.js";import"./index.943f55a9.js";function p(){return o(i,{from:"LikedMovies"})}export{p as default};
