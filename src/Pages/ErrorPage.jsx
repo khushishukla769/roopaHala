@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 function ErrorPage() {
   const navigate = useNavigate();
+  useEffect(() => {
+    console.log("ErrorPage rendered! Path:", window.location.pathname);
+  }, []);
+
   return (
     <div className="h-screen flex items-center justify-center">
       <div className="flex flex-col items-center">

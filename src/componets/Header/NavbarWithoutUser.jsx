@@ -6,8 +6,9 @@ function NavbarWithoutUser() {
   const [show, handleShow] = useState(false);
   const location = useLocation();
 
-  const buttonRef = useRef(null);
+  const signInRef = useRef(null);
   const privacyRef = useRef(null);
+  const getStartedRef = useRef(null);
 
   const transitionNavBar = () => {
     if (window.scrollY > 100) {
@@ -17,27 +18,39 @@ function NavbarWithoutUser() {
     }
   };
 
+  const hideLoginButton =
+    location.pathname === "/signin" ||
+    location.pathname === "/signup" ||
+    location.pathname === "/forgot-password" ||
+    location.pathname === "/privacyPolicy";
+
   const handleRemoteKey = (e) => {
     switch (e.key) {
       case "Enter":
-        if (document.activeElement === buttonRef.current) {
-          buttonRef.current.click();
+        if (document.activeElement === signInRef.current) {
+          signInRef.current.click();
         } else if (document.activeElement === privacyRef.current) {
           privacyRef.current.click();
+        } else if (document.activeElement === getStartedRef.current) {
+          getStartedRef.current.click();
         }
         e.preventDefault();
         break;
 
       case "ArrowLeft":
-        if (privacyRef.current && !hideLoginButton) {
-          privacyRef.current.focus();
+        if (document.activeElement === getStartedRef.current) {
+          signInRef.current?.focus();
+        } else if (document.activeElement === signInRef.current) {
+          privacyRef.current?.focus();
         }
         e.preventDefault();
         break;
 
       case "ArrowRight":
-        if (buttonRef.current && !hideLoginButton) {
-          buttonRef.current.focus();
+        if (document.activeElement === privacyRef.current) {
+          signInRef.current?.focus();
+        } else if (document.activeElement === signInRef.current) {
+          getStartedRef.current?.focus();
         }
         e.preventDefault();
         break;
@@ -59,18 +72,9 @@ function NavbarWithoutUser() {
 
   useEffect(() => {
     if (!hideLoginButton) {
-      // Default: focus Sign In first
-      if (buttonRef.current) {
-        buttonRef.current.focus();
-      }
+      signInRef.current?.focus();
     }
   }, [location.pathname]);
-
-  const hideLoginButton =
-    location.pathname === "/signin" ||
-    location.pathname === "/signup" ||
-    location.pathname === "/forgot-password" ||
-    location.pathname === "/privacyPolicy";
 
   return (
     <footer className="fixed bottom-0 z-50 w-full flex items-center justify-between px-28 py-10 text-white transition duration-500 ease-in-out">
@@ -78,9 +82,10 @@ function NavbarWithoutUser() {
         <span
           ref={privacyRef}
           onClick={() => navigate("/privacyPolicy")}
-          className="cursor-pointer text-sm decoration-orange-500 underline-offset-4
-                   hover:underline hover:decoration-orange-500 hover:decoration-2
-                   focus:underline focus:decoration-orange-500 focus:decoration-2 focus:outline-none"
+          className="cursor-pointer text-[20px] font-semibold text-center align-middle
+             decoration-transparent underline-offset-[25%]
+             focus:underline focus:decoration-orange-500 focus:decoration-2 focus:outline-none"
+          style={{ fontFamily: "'Noto Sans', sans-serif", lineHeight: "1" }}
           tabIndex={0}
         >
           Privacy Policy
@@ -88,15 +93,24 @@ function NavbarWithoutUser() {
       )}
 
       {!hideLoginButton && (
-        <Link to="/signin">
+        <div className="flex gap-4 items-end">
           <button
-            ref={buttonRef}
-            className="w-28 sm:w-32 bg-white h-14 sm:h-12 rounded-xl text-black font-bold transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-orange-500"
+            ref={signInRef}
+            className="w-28 sm:w-28 bg-white h-14 sm:h-14 rounded-xl text-black font-bold transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-orange-500"
             tabIndex={0}
+            onClick={() => navigate("/signin")}
           >
             Sign In
           </button>
-        </Link>
+
+          <button
+            ref={getStartedRef}
+            className="w-48 sm:w-48 bg-orange-600 h-16 sm:h-16 rounded-xl text-white font-bold transition-colors flex items-center justify-center shadow-[0px_8px_48px_0px_rgba(225,124,0,0.5)] focus:outline-none focus:ring-2 focus:ring-orange-500"
+            tabIndex={0}
+          >
+            Get Started
+          </button>
+        </div>
       )}
     </footer>
   );

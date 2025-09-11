@@ -4,6 +4,8 @@ import StarRatings from "react-star-ratings";
 import axios from "../axios";
 import { API_KEY, imageUrl, imageUrl2 } from "../Constants/Constance";
 import ReactPlayer from "react-player";
+import Plyr from "plyr-react";
+import "plyr-react/plyr.css";
 
 import Navbar from "../componets/Header/Navbar";
 import Footer from "../componets/Footer/Footer";
@@ -111,13 +113,41 @@ function Play() {
           //   allow="autoplay fullscreen"
           //   allowFullScreen
           // ></iframe>
-          <ReactPlayer
-            src={`https://www.youtube.com/watch?v=${urlId.key}`}
-            width="100%"
-            height="100%"
-            playing={true}
-            controls={true}
-          />
+          // <ReactPlayer
+          //   src={`https://www.youtube.com/watch?v=${urlId.key}`}
+          //   width="100%"
+          //   height="100%"
+          //   playing={true}
+          //   controls={true}
+          // />
+          <div style={{ width: "100%", height: "100%" }}>
+            <Plyr
+              source={{
+                type: "video",
+                sources: [
+                  {
+                    src: urlId.key,
+                    provider: "youtube",
+                  },
+                ],
+              }}
+              options={{
+                autoplay: true,
+                captions: { active: true, language: "auto" },
+                controls: [
+                  "play-large",
+                  "play",
+                  "progress",
+                  "current-time",
+                  "mute",
+                  "volume",
+                  "captions",
+                  "settings",
+                  "fullscreen",
+                ],
+              }}
+            />
+          </div>
         ) : (
           <img src={`${imageUrl + movieDetails.backdrop_path}`} />
         )}

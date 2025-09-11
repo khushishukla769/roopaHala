@@ -21,3 +21,11 @@ button:focus-visible {
   outline: none;
   box-shadow: 0 0 0 1px white;
 }
+
+/* App.css */
+.plyr__captions {
+  bottom: 40px !important;
+  font-size: 18px !important;
+  color: yellow !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8);
+}
