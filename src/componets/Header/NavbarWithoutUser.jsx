@@ -95,7 +95,8 @@ function NavbarWithoutUser() {
         <div className="flex gap-4 items-end">
           <button
             ref={signInRef}
-            className="w-28 sm:w-28 bg-white h-14 sm:h-14 rounded-xl text-black font-bold transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-orange"
+            className="w-28 sm:w-28 bg-white h-14 sm:h-14 rounded-xl text-black font-bold text-xl font-museo
+            transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-orange"
             tabIndex={0}
             onClick={() => navigate("/signin")}
           >
@@ -104,7 +105,8 @@ function NavbarWithoutUser() {
 
           <button
             ref={getStartedRef}
-            className="w-48 sm:w-48 bg-orange h-16 sm:h-16 rounded-xl text-white font-bold transition-colors flex items-center justify-center shadow-[0px_8px_48px_0px_rgba(225,124,0,0.5)] focus:outline-none focus:ring-2 focus:ring-orange"
+            className="w-[198px] bg-orange h-16 sm:h-16 rounded-xl text-white font-bold transition-colors flex items-center font-museo
+             justify-center shadow-[0px_8px_48px_0px_rgba(225,124,0,0.5)] focus:outline-none focus:ring-2 focus:ring-orange text-2xl"
             tabIndex={0}
           >
             Get Started

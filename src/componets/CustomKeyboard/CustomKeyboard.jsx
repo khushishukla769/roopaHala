@@ -1,6 +1,3 @@
-// src/components/CustomKeyboard.jsx
-import React from "react";
-
 function CustomKeyboard({
   handleKeyPress,
   handleBackspace,
@@ -66,8 +63,8 @@ function CustomKeyboard({
           ref={(el) => (focusableRefs.current[34] = el)}
           onClick={() => setIsUpperCase((prev) => !prev)}
           className={`col-span-2 h-14 w-[122px] rounded text-white text-xl ${isUpperCase
-              ? "bg-orange"
-              : "bg-darkGray border border-lightGray"
+            ? "bg-orange"
+            : "bg-darkGray border border-lightGray"
             }`}
         >
           ↑
