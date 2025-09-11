@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Fade } from "react-reveal";
 import { ClipLoader } from "react-spinners";
 import WelcomePageBanner from "../images/WelcomePageBanner.jpg";
+import { FaArrowLeft } from "react-icons/fa6";
 
 export const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -189,9 +190,9 @@ export const ForgotPassword = () => {
         <button
           ref={(el) => (focusableRefs.current[56] = el)}
           onClick={() => navigate(-1)}
-          className="self-start sm:self-center flex items-center gap-3 bg-white px-4 py-2 rounded-lg hover:bg-opacity-30 transition-colors"
+          className="self-start sm:self-center flex items-center gap-3 bg-white px-4 py-2 rounded-lg hover:bg-opacity-30 transition-colors h-14 w-14"
         >
-          <span className="text-xl text-orange-500">←</span>
+          <span className="text-xl text-orange"><FaArrowLeft /></span>
         </button>
 
         <div className="flex-1 sm:ml-5 text-center sm:text-left">
@@ -211,7 +212,7 @@ export const ForgotPassword = () => {
                   key={num}
                   ref={(el) => (focusableRefs.current[4 + idx] = el)}
                   onClick={() => handleKeyPress(num)}
-                  className="h-8 sm:h-10 lg:h-11 w-full bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
+                  className="h-8 sm:h-10 lg:h-11 w-full bg-darkGray hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
                 >
                   {num}
                 </button>
@@ -224,7 +225,7 @@ export const ForgotPassword = () => {
                   key={letter}
                   ref={(el) => (focusableRefs.current[14 + idx] = el)}
                   onClick={() => handleKeyPress(letter)}
-                  className="h-8 sm:h-10 lg:h-11 w-full bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
+                  className="h-8 sm:h-10 lg:h-11 w-full bg-darkGray hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
                 >
                   {letter}
                 </button>
@@ -237,7 +238,7 @@ export const ForgotPassword = () => {
                   key={letter}
                   ref={(el) => (focusableRefs.current[24 + idx] = el)}
                   onClick={() => handleKeyPress(letter)}
-                  className="h-8 sm:h-10 lg:h-11 w-full bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
+                  className="h-8 sm:h-10 lg:h-11 w-full bg-darkGray hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
                 >
                   {letter}
                 </button>
@@ -245,7 +246,7 @@ export const ForgotPassword = () => {
               <button
                 ref={(el) => (focusableRefs.current[33] = el)}
                 onClick={() => handleKeyPress("-")}
-                className="h-8 sm:h-10 lg:h-11 w-full bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
+                className="h-8 sm:h-10 lg:h-11 w-full bg-darkGray hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
               >
                 -
               </button>
@@ -255,7 +256,7 @@ export const ForgotPassword = () => {
               <button
                 ref={(el) => (focusableRefs.current[34] = el)}
                 onClick={() => setIsUpperCase(!isUpperCase)}
-                className={`col-span-2 h-8 sm:h-10 lg:h-11 w-full rounded text-white text-xs sm:text-sm ${isUpperCase ? "bg-orange-600" : "bg-neutral-800"}`}
+                className={`col-span-2 h-8 sm:h-10 lg:h-11 w-full rounded text-white text-xs sm:text-sm ${isUpperCase ? "bg-orange" : "bg-darkGray"}`}
               >
                 ↑
               </button>
@@ -264,7 +265,7 @@ export const ForgotPassword = () => {
                   key={letter}
                   ref={(el) => (focusableRefs.current[36 + idx] = el)}
                   onClick={() => handleKeyPress(letter)}
-                  className="h-8 sm:h-10 lg:h-11 w-full bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
+                  className="h-8 sm:h-10 lg:h-11 w-full bg-darkGray hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
                 >
                   {letter}
                 </button>
@@ -272,7 +273,7 @@ export const ForgotPassword = () => {
               <button
                 ref={(el) => (focusableRefs.current[43] = el)}
                 onClick={() => handleKeyPress("-")}
-                className="h-8 sm:h-10 lg:h-11 w-full bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
+                className="h-8 sm:h-10 lg:h-11 w-full bg-darkGray hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
               >
                 -
               </button>
@@ -284,7 +285,7 @@ export const ForgotPassword = () => {
                   key={domain}
                   ref={(el) => (focusableRefs.current[44 + idx] = el)}
                   onClick={() => addEmailDomain(domain)}
-                  className="h-8 sm:h-10 lg:h-11 bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs"
+                  className="h-8 sm:h-10 lg:h-11 bg-darkGray hover:bg-gray-600 rounded text-white text-xs"
                 >
                   {domain}
                 </button>
@@ -301,28 +302,28 @@ export const ForgotPassword = () => {
               <button
                 ref={(el) => (focusableRefs.current[48] = el)}
                 onClick={() => handleKeyPress("!#$")}
-                className="h-8 sm:h-10 lg:h-11 bg-neutral-800 hover:bg-gray-600 text-white rounded text-xs sm:text-sm"
+                className="h-8 sm:h-10 lg:h-11 bg-darkGray hover:bg-gray-600 text-white rounded text-xs sm:text-sm"
               >
                 !#$
               </button>
               <button
                 ref={(el) => (focusableRefs.current[49] = el)}
                 onClick={() => handleKeyPress("@")}
-                className="h-8 sm:h-10 lg:h-11 bg-neutral-800 hover:bg-gray-600 text-white rounded text-xs sm:text-sm"
+                className="h-8 sm:h-10 lg:h-11 bg-darkGray hover:bg-gray-600 text-white rounded text-xs sm:text-sm"
               >
                 @
               </button>
               <button
                 ref={(el) => (focusableRefs.current[50] = el)}
                 onClick={() => handleKeyPress(".")}
-                className="h-8 sm:h-10 lg:h-11 bg-neutral-800 hover:bg-gray-600 text-white rounded text-xs sm:text-sm"
+                className="h-8 sm:h-10 lg:h-11 bg-darkGray hover:bg-gray-600 text-white rounded text-xs sm:text-sm"
               >
                 .
               </button>
               <button
                 ref={(el) => (focusableRefs.current[51] = el)}
                 onClick={() => handleKeyPress(".com")}
-                className="h-8 sm:h-10 lg:h-11 bg-neutral-800 hover:bg-gray-600 text-white rounded text-xs sm:text-sm"
+                className="h-8 sm:h-10 lg:h-11 bg-darkGray hover:bg-gray-600 text-white rounded text-xs sm:text-sm"
               >
                 .com
               </button>
@@ -335,7 +336,7 @@ export const ForgotPassword = () => {
               </button>
             </div>
             <div className="flex justify-start items-start w-full mt-20">
-              <button ref={(el) => (focusableRefs.current[2] = el)} type="submit" onClick={handleSubmit} className="w-full sm:w-32 bg-orange-600 h-10 sm:h-12 rounded-xl text-white font-bold transition-colors flex items-center justify-center shadow-[0px_8px_48px_0px_rgba(225,124,0,0.5)]">
+              <button ref={(el) => (focusableRefs.current[2] = el)} type="submit" onClick={handleSubmit} className="w-full sm:w-32 bg-orange h-10 sm:h-12 rounded-xl text-white font-bold transition-colors flex items-center justify-center shadow-[0px_8px_48px_0px_rgba(225,124,0,0.5)]">
                 {loader ? <ClipLoader color="#fff" size={20} /> : "Submit Email"}
               </button>
             </div>
@@ -349,7 +350,7 @@ export const ForgotPassword = () => {
                 tabIndex={0}
                 onFocus={() => setActiveInput("email")}
                 className={`w-full bg-black border rounded px-4 py-3 text-white transition-all duration-300 outline-none text-sm sm:text-base cursor-text ${activeInput === "email"
-                  ? "border-orange-600 shadow-[0_0_8px_2px_rgba(225,124,0,0.7)]"
+                  ? "border-orange shadow-[0_0_8px_2px_rgba(225,124,0,0.7)]"
                   : "border-gray-700"
                   }`}
               >

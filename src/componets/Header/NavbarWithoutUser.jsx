@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function NavbarWithoutUser() {
   const navigate = useNavigate();
@@ -83,9 +83,8 @@ function NavbarWithoutUser() {
           ref={privacyRef}
           onClick={() => navigate("/privacyPolicy")}
           className="cursor-pointer text-[20px] font-semibold text-center align-middle
-             decoration-transparent underline-offset-[25%]
-             focus:underline focus:decoration-orange-500 focus:decoration-2 focus:outline-none"
-          style={{ fontFamily: "'Noto Sans', sans-serif", lineHeight: "1" }}
+             decoration-transparent underline-offset-[25%] font-museo
+             focus:underline focus:decoration-orange focus:decoration-2 focus:outline-none"
           tabIndex={0}
         >
           Privacy Policy
@@ -96,7 +95,7 @@ function NavbarWithoutUser() {
         <div className="flex gap-4 items-end">
           <button
             ref={signInRef}
-            className="w-28 sm:w-28 bg-white h-14 sm:h-14 rounded-xl text-black font-bold transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-28 sm:w-28 bg-white h-14 sm:h-14 rounded-xl text-black font-bold transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-orange"
             tabIndex={0}
             onClick={() => navigate("/signin")}
           >
@@ -105,7 +104,7 @@ function NavbarWithoutUser() {
 
           <button
             ref={getStartedRef}
-            className="w-48 sm:w-48 bg-orange-600 h-16 sm:h-16 rounded-xl text-white font-bold transition-colors flex items-center justify-center shadow-[0px_8px_48px_0px_rgba(225,124,0,0.5)] focus:outline-none focus:ring-2 focus:ring-orange-500"
+            className="w-48 sm:w-48 bg-orange h-16 sm:h-16 rounded-xl text-white font-bold transition-colors flex items-center justify-center shadow-[0px_8px_48px_0px_rgba(225,124,0,0.5)] focus:outline-none focus:ring-2 focus:ring-orange"
             tabIndex={0}
           >
             Get Started

@@ -268,12 +268,13 @@
 
 // export default SignIn;
 
-import React, { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Fade } from "react-reveal";
 import { ClipLoader } from "react-spinners";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import WelcomePageBanner from "../images/WelcomePageBanner.jpg";
+import { FaArrowLeft } from "react-icons/fa6";
+import GradientBgImage from "./GradientBgImage";
 
 function SignIn() {
   const navigate = useNavigate();
@@ -464,23 +465,15 @@ function SignIn() {
   };
 
   return (
-    <section
-      className="min-h-screen text-white"
-      style={{
-        backgroundImage: `url(${WelcomePageBanner})`,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
+    <GradientBgImage>
       <div className="flex flex-col sm:flex-row justify-between items-center p-3 sm:p-5 bg-black bg-opacity-50 gap-3 sm:gap-0">
         <button
           ref={(el) => (focusableRefs.current[56] = el)}
           onClick={() => navigate(-1)}
-          className="self-start sm:self-center flex items-center gap-3 bg-white px-4 py-2 rounded-lg hover:bg-opacity-30 transition-colors"
+          className="self-start sm:self-center flex items-center gap-3 bg-white px-4 py-2 rounded-lg hover:bg-opacity-30 transition-colors h-14 w-14"
         >
-          <span className="text-xl text-orange-500">←</span>
+          <span className="text-xl text-orange"><FaArrowLeft /></span>
         </button>
-
 
         <div className="flex-1 sm:ml-5 text-center sm:text-left">
           <h1 className="text-base sm:text-lg font-semibold">Sign-In to your Roopa Hala Account</h1>
@@ -488,18 +481,18 @@ function SignIn() {
         </div>
 
       </div>
-      <h2 className="text-2xl sm:text-3xl font-bold text-center mt-4 sm:mt-6 px-4">User Login</h2>
+      <h2 className="text-4xl sm:text-4xl font-bold text-center text-white mt-4 sm:mt-6 px-4">User Login</h2>
 
       <Fade>
-        <div className="flex flex-col xl:flex-row justify-center items-start gap-6 sm:gap-8 lg:gap-12 p-3 sm:p-6 mt-28">
-          <div className="flex flex-col items-center space-y-1 sm:space-y-1.5 md:space-y-2 w-full max-w-[500px] xl:max-w-[600px] order-2 xl:order-1">
+        <div className="flex flex-col xl:flex-row justify-center items-start gap-6 sm:gap-8 lg:gap-12 p-3 sm:p-6 mt-28 h-[498px]">
+          <div className="flex flex-col items-center space-y-1 sm:space-y-1.5 md:space-y-2 w-[650px] h-[498px] order-2 xl:order-1">
             <div className="grid grid-cols-10 gap-1 sm:gap-2 w-full">
               {"1234567890".split("").map((num, idx) => (
                 <button
                   key={num}
                   ref={(el) => (focusableRefs.current[4 + idx] = el)}
                   onClick={() => handleKeyPress(num)}
-                  className="h-8 sm:h-10 lg:h-11 w-full bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
+                  className="h-14 w-14 bg-darkGray border border-lightGray hover:bg-lightGray rounded text-white text-xl"
                 >
                   {num}
                 </button>
@@ -512,7 +505,7 @@ function SignIn() {
                   key={letter}
                   ref={(el) => (focusableRefs.current[14 + idx] = el)}
                   onClick={() => handleKeyPress(letter)}
-                  className="h-8 sm:h-10 lg:h-11 w-full bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
+                  className="h-14 w-14 bg-darkGray border border-lightGray hover:bg-lightGray rounded text-white text-xl"
                 >
                   {letter}
                 </button>
@@ -525,7 +518,7 @@ function SignIn() {
                   key={letter}
                   ref={(el) => (focusableRefs.current[24 + idx] = el)}
                   onClick={() => handleKeyPress(letter)}
-                  className="h-8 sm:h-10 lg:h-11 w-full bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
+                  className="h-14 w-14 bg-darkGray border border-lightGray hover:bg-lightGray rounded text-white text-xl"
                 >
                   {letter}
                 </button>
@@ -533,7 +526,7 @@ function SignIn() {
               <button
                 ref={(el) => (focusableRefs.current[33] = el)}
                 onClick={() => handleKeyPress("-")}
-                className="h-8 sm:h-10 lg:h-11 w-full bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
+                className="h-14 w-14 bg-darkGray border border-lightGray hover:bg-lightGray rounded text-white text-xl"
               >
                 -
               </button>
@@ -543,7 +536,7 @@ function SignIn() {
               <button
                 ref={(el) => (focusableRefs.current[34] = el)}
                 onClick={() => setIsUpperCase(!isUpperCase)}
-                className={`col-span-2 h-8 sm:h-10 lg:h-11 w-full rounded text-white text-xs sm:text-sm ${isUpperCase ? "bg-orange-600" : "bg-neutral-800"}`}
+                className={`col-span-2 h-14 w-[122px] rounded text-white text-xl ${isUpperCase ? "bg-orange" : "bg-darkGray border border-lightGray"}`}
               >
                 ↑
               </button>
@@ -552,7 +545,7 @@ function SignIn() {
                   key={letter}
                   ref={(el) => (focusableRefs.current[36 + idx] = el)}
                   onClick={() => handleKeyPress(letter)}
-                  className="h-8 sm:h-10 lg:h-11 w-full bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
+                  className="h-14 w-14 bg-darkGray border border-lightGray hover:bg-lightGray rounded text-white text-xl"
                 >
                   {letter}
                 </button>
@@ -560,7 +553,7 @@ function SignIn() {
               <button
                 ref={(el) => (focusableRefs.current[43] = el)}
                 onClick={() => handleKeyPress("-")}
-                className="h-8 sm:h-10 lg:h-11 w-full bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs sm:text-sm"
+                className="h-14 w-14 bg-darkGray border border-lightGray hover:bg-lightGray rounded text-white text-xl"
               >
                 -
               </button>
@@ -572,113 +565,130 @@ function SignIn() {
                   key={domain}
                   ref={(el) => (focusableRefs.current[44 + idx] = el)}
                   onClick={() => addEmailDomain(domain)}
-                  className="h-8 sm:h-10 lg:h-11 bg-neutral-800 hover:bg-gray-600 rounded text-white text-xs"
+                  className="h-14 w-[210px] bg-darkGray border border-lightGray hover:bg-lightGray rounded text-white text-xl"
                 >
                   {domain}
                 </button>
               ))}
             </div>
-
-            <div className="grid grid-cols-6 gap-1 sm:gap-2 w-full">
+            <div className="flex justify-center gap-1 sm:gap-2 w-full">
               <button
                 ref={(el) => (focusableRefs.current[47] = el)}
-                className="h-8 sm:h-10 lg:h-11 bg-white text-black rounded text-xs sm:text-sm"
+                className="h-14 w-[122px] bg-white text-black rounded text-xl"
               >
                 Next
               </button>
+
               <button
                 ref={(el) => (focusableRefs.current[48] = el)}
                 onClick={() => handleKeyPress("!#$")}
-                className="h-8 sm:h-10 lg:h-11 bg-neutral-800 hover:bg-gray-600 text-white rounded text-xs sm:text-sm"
+                className="h-14 w-[122px] bg-darkGray border border-lightGray hover:bg-lightGray text-white rounded text-xl"
               >
                 !#$
               </button>
+
               <button
                 ref={(el) => (focusableRefs.current[49] = el)}
                 onClick={() => handleKeyPress("@")}
-                className="h-8 sm:h-10 lg:h-11 bg-neutral-800 hover:bg-gray-600 text-white rounded text-xs sm:text-sm"
+                className="h-14 w-[56px] bg-darkGray border border-lightGray hover:bg-lightGray text-white rounded text-xl"
               >
                 @
               </button>
+
               <button
                 ref={(el) => (focusableRefs.current[50] = el)}
                 onClick={() => handleKeyPress(".")}
-                className="h-8 sm:h-10 lg:h-11 bg-neutral-800 hover:bg-gray-600 text-white rounded text-xs sm:text-sm"
+                className="h-14 w-[56px] bg-darkGray border border-lightGray hover:bg-lightGray text-white rounded text-xl"
               >
                 .
               </button>
+
               <button
                 ref={(el) => (focusableRefs.current[51] = el)}
                 onClick={() => handleKeyPress(".com")}
-                className="h-8 sm:h-10 lg:h-11 bg-neutral-800 hover:bg-gray-600 text-white rounded text-xs sm:text-sm"
+                className="h-14 w-[122px] bg-darkGray border border-lightGray hover:bg-lightGray text-white rounded text-xl"
               >
                 .com
               </button>
+
               <button
                 ref={(el) => (focusableRefs.current[52] = el)}
                 onClick={handleBackspace}
-                className="h-8 sm:h-10 lg:h-11 bg-white text-black rounded text-xs sm:text-sm"
+                className="h-14 w-[122px] bg-white text-black rounded text-xl"
               >
                 ⌫
               </button>
             </div>
 
-            <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end w-full mt-8 sm:mt-16 xl:mt-56 gap-3 sm:gap-4">
-
-              <button ref={(el) => (focusableRefs.current[2] = el)} type="submit" onClick={handleSubmit} className="w-full sm:w-32 bg-orange-600 h-10 sm:h-12 rounded-xl text-white font-bold transition-colors flex items-center justify-center shadow-[0px_8px_48px_0px_rgba(225,124,0,0.5)]">
+            <div className="flex flex-col sm:flex-row justify-between items-center sm:items-end w-full gap-3 sm:gap-4" style={{ marginTop: "30px" }}>
+              <button
+                ref={(el) => (focusableRefs.current[2] = el)}
+                type="submit"
+                onClick={handleSubmit}
+                className="w-[163px] h-16 bg-orange rounded-xl text-white font-semibold text-[24px]
+             leading-[100%] tracking-[0] text-center align-middle transition-colors flex font-museo
+             items-center justify-center shadow-[0px_8px_48px_0px_rgba(225,124,0,0.5)]"
+              >
                 {loader ? <ClipLoader color="#fff" size={20} /> : "Sign-In"}
               </button>
 
               <button
                 ref={(el) => (focusableRefs.current[3] = el)}
                 onClick={() => navigate('/forgot-password')}
-                className="bg-gray-700 hover:bg-gray-600 h-8 px-4 rounded text-white text-sm font-medium transition-colors flex items-center justify-center whitespace-nowrap"
+                className="bg-darkGray hover:bg-lightGray border border-lightGray h-[46px] w-[204px] px-4 rounded-lg
+             text-white text-[20px] font-semibold leading-[150%] tracking-[0] font-museo
+             text-center capitalize transition-colors flex items-center justify-center whitespace-nowrap"
               >
                 Forget Password?
               </button>
 
-              <div className="flex items-center gap-2">
+              <div className="flex items-center gap-[10px]">
                 <input
                   ref={(el) => (focusableRefs.current[53] = el)}
                   type="checkbox"
                   checked={rememberEmail}
                   onChange={(e) => setRememberEmail(e.target.checked)}
-                  className="bg-gray-700 w-4 sm:w-5 h-4 sm:h-5 accent-orange-500"
+                  className="w-[40px] h-[40px] rounded-lg border border-lightGray bg-darkGray accent-orange"
+                  style={{ padding: "8px 16px" }}
                 />
-                <span className="text-white text-xs sm:text-sm whitespace-nowrap">Remember Email</span>
+                <span
+                  className="text-white text-[20px] leading-[150%] tracking-[0] text-center capitalize font-museo font-semibold"
+                >
+                  Remember Email
+                </span>
               </div>
+
             </div>
           </div>
 
-          <div className="bg-opacity-60 rounded-xl max-w-md w-full order-1 xl:order-2">
-            <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="bg-opacity-60 rounded-xl w-[650px] h-[498px] order-1 xl:order-2 relative flex flex-col">
+            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
+
+              {/* Email Input */}
               <div
                 ref={(el) => (focusableRefs.current[0] = el)}
                 tabIndex={0}
                 onFocus={() => setActiveInput("email")}
-                className={`w-full bg-black border rounded px-4 py-3 text-white transition-all duration-300 outline-none text-sm sm:text-base cursor-text ${activeInput === "email"
-                  ? "border-orange-600 shadow-[0_0_8px_2px_rgba(225,124,0,0.7)]"
-                  : "border-gray-700"
-                  }`}
+                className={`w-full h-[72px] bg-black border border-lightGray rounded-xl px-6 py-6 text-white text-2xl
+                  cursor-text transition-all duration-300 outline-none flex items-center
+        ${activeInput === "email" ? "border-orangeHighlight shadow-[2px_2px_12px_0px_rgba(255,140,0,0.38)]" : ""}
+      `}
               >
                 {email || "appuser@roopahala.co"}
               </div>
 
+              {/* Password Input */}
               <div className="relative">
                 <div
                   ref={(el) => (focusableRefs.current[1] = el)}
                   tabIndex={0}
                   onFocus={() => setActiveInput("password")}
-                  className={`w-full bg-black border rounded px-4 py-3 pr-12 text-white transition-all duration-300 outline-none text-sm sm:text-base cursor-text ${activeInput === "password"
-                    ? "border-orange-600 shadow-[0_0_8px_2px_rgba(225,124,0,0.7)]"
-                    : "border-gray-700"
-                    }`}
+                  className={`w-full h-[72px] bg-black border border-lightGray rounded-xl px-6 pr-12 text-white text-2xl cursor-text
+                     transition-all duration-300 outline-none flex items-center
+          ${activeInput === "password" ? "border-orangeHighlight shadow-[2px_2px_12px_0px_rgba(255,140,0,0.38)]" : ""}
+        `}
                 >
-                  {password
-                    ? showPassword
-                      ? password
-                      : "•".repeat(password.length)
-                    : "Your Password"}
+                  {password ? (showPassword ? password : "•".repeat(password.length)) : "Your Password"}
                 </div>
 
                 <button
@@ -691,32 +701,44 @@ function SignIn() {
                 </button>
               </div>
 
-
               {ErrorMessage && (
                 <div className="bg-red-600 text-white p-3 rounded text-sm">{ErrorMessage}</div>
               )}
             </form>
 
-            <div className="text-center sm:text-right mt-6">
-              <p className="text-white text-sm">Not a member yet?</p>
-              <Link
-                ref={(el) => (focusableRefs.current[54] = el)}
-                to="/signup"
-                className="inline-block mt-2 bg-gray-700 text-white px-6 py-2 rounded hover:bg-gray-600 transition text-sm
-             focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-              >
-                Sign Up
-              </Link>
-            </div>
+            {/* Bottom Right Section */}
+            <div className="absolute bottom-8 right-6 text-right flex flex-col items-end gap-3">
+              <div className="flex flex-col gap-4">
+                <p className="text-white text-[20px] font-medium font-museo capitalize text-center leading-[140%]">
+                  Don’t have an account?
+                </p>
 
-            <div className="text-center sm:text-right mt-5 sm:mt-20">
-              <p className="text-white text-sm">Need Help Signing In?</p>
-              <p className="text-white font-bold text-sm">Visit Roopahala.com</p>
+                <Link
+                  ref={(el) => (focusableRefs.current[54] = el)}
+                  to="/signup"
+                  className="self-end inline-flex items-center justify-center w-[116px] h-[46px] bg-darkGray text-white text-[20px] font-semibold font-museo capitalize rounded-[8px] border
+                   border-lightGray hover:bg-lightGray transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+                >
+                  Sign Up
+                </Link>
+              </div>
+
+
+              <div className="mt-3">
+                <p className="text-white text-[16px] font-semibold font-museo capitalize text-right leading-[180%]">
+                  Need Help Signing In?
+                </p>
+                <p className="text-white text-[16px] font-semibold font-museo capitalize text-right leading-[180%]">
+                  Visit Roopahala.com
+                </p>
+              </div>
+
             </div>
           </div>
+
         </div>
       </Fade>
-    </section>
+    </GradientBgImage>
   );
 }
 

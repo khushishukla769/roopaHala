@@ -17,7 +17,7 @@ const GradientBgImage = ({ children, className = "" }) => {
         backgroundRepeat: "no-repeat",
       }}
     >
-      <div className="flex flex-col items-center w-full">{children}</div>
+      <div className="w-full">{children}</div>
     </div>
   );
 };
