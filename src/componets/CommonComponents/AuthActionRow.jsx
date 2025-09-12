@@ -2,7 +2,6 @@ import { forwardRef } from "react";
 import { ClipLoader } from "react-spinners";
 import { useNavigate } from "react-router-dom";
 
-// Forward ref so parent can assign refs
 export const AuthActionRow = forwardRef(
   (
     {
@@ -13,7 +12,7 @@ export const AuthActionRow = forwardRef(
       showForgotPassword = true,
       submitText = "Sign-In",
     },
-    ref // ref will be an object to hold multiple refs
+    ref
   ) => {
     const navigate = useNavigate();
 

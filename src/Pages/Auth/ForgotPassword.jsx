@@ -1,26 +1,22 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Fade } from "react-reveal";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import GradientBgImage from "./GradientBgImage";
-import CustomKeyboard from "../componets/CustomKeyboard/CustomKeyboard";
-import Input from "../componets/CommonComponents/Input";
-import AuthHelpText from "../componets/CommonComponents/HelpText";
-import { AuthActionRow } from '../componets/CommonComponents/AuthActionRow'
-import { AuthHeader } from "../componets/CommonComponents/AuthHeader";
+import { ClipLoader } from "react-spinners";
+import GradientBgImage from "../GradientBgImage";
+import CustomKeyboard from "../../componets/CustomKeyboard/CustomKeyboard";
+import Input from "../../componets/CommonComponents/Input";
+import AuthHelpText from "../../componets/CommonComponents/HelpText";
+import { AuthHeader } from "../../componets/CommonComponents/AuthHeader";
 
-function SignIn() {
+export const ForgotPassword = () => {
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
   const [ErrorMessage, setErrorMessage] = useState("");
   const [loader, setLoader] = useState(false);
   const [activeInput, setActiveInput] = useState(null);
   const [isUpperCase, setIsUpperCase] = useState(false);
-  const [rememberEmail, setRememberEmail] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(0);
-  const [showPassword, setShowPassword] = useState(false);
 
   const focusableRefs = useRef([]);
 
@@ -43,16 +39,13 @@ function SignIn() {
     let rowIndex = keyboardGrid.findIndex(row => row.includes(focusedIndex));
     let colIndex = rowIndex !== -1 ? keyboardGrid[rowIndex].indexOf(focusedIndex) : -1;
 
-    const formOrder = [56, 0, 1, 55, 54];
+    const firstKeys = [4, 14, 24, 34, 44, 47, 2];
+
+    const formOrder = [0, 1, 55, 54];
     const bottomOrder = [47, 2, 3, 53];
 
     switch (e.key) {
       case "ArrowRight":
-        if (focusedIndex === 56) {
-          setFocusedIndex(4);
-          e.preventDefault();
-          break;
-        }
         if (rowIndex !== -1) {
           if (colIndex < keyboardGrid[rowIndex].length - 1) {
             setFocusedIndex(keyboardGrid[rowIndex][colIndex + 1]);
@@ -66,26 +59,28 @@ function SignIn() {
           } else {
             setFocusedIndex(0);
           }
-        } else {
+        } else if (focusedIndex === 56) {
+          setFocusedIndex(4);
         }
         e.preventDefault();
         break;
 
       case "ArrowLeft":
-        const firstKeys = [4, 14, 24, 34, 44, 47, 2];
         if (firstKeys.includes(focusedIndex)) {
           setFocusedIndex(56);
-          e.preventDefault();
-          break;
-        }
-
-        if (rowIndex !== -1 && colIndex > 0) {
-          setFocusedIndex(keyboardGrid[rowIndex][colIndex - 1]);
+        } else if (rowIndex !== -1) {
+          if (colIndex > 0) {
+            setFocusedIndex(keyboardGrid[rowIndex][colIndex - 1]);
+          }
         } else if (formOrder.includes(focusedIndex)) {
           setFocusedIndex(4);
         } else if (bottomOrder.includes(focusedIndex)) {
           const pos = bottomOrder.indexOf(focusedIndex);
-          if (pos > 0) setFocusedIndex(bottomOrder[pos - 1]);
+          if (pos > 0) {
+            setFocusedIndex(bottomOrder[pos - 1]);
+          } else {
+            setFocusedIndex(56);
+          }
         }
         e.preventDefault();
         break;
@@ -93,8 +88,6 @@ function SignIn() {
       case "ArrowDown":
         if (focusedIndex === 56) {
           setFocusedIndex(4);
-          e.preventDefault();
-          break;
         }
         if (rowIndex !== -1) {
           if (focusedIndex === 47) {
@@ -122,8 +115,6 @@ function SignIn() {
       case "ArrowUp":
         if (focusedIndex === 56) {
           setFocusedIndex(4);
-          e.preventDefault();
-          break;
         }
         if (rowIndex !== -1) {
           if (rowIndex > 0) {
@@ -162,30 +153,16 @@ function SignIn() {
   }, [focusedIndex]);
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    setLoader(true);
 
-    const auth = getAuth();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        if (user) navigate("/");
-      })
-      .catch((error) => {
-        setErrorMessage(error.message);
-        setLoader(false);
-      });
   };
 
   const handleKeyPress = (value) => {
     const char = isUpperCase && value.match(/[a-z]/) ? value.toUpperCase() : value;
     if (activeInput === "email") setEmail((prev) => prev + char);
-    if (activeInput === "password") setPassword((prev) => prev + char);
   };
 
   const handleBackspace = () => {
     if (activeInput === "email") setEmail((prev) => prev.slice(0, -1));
-    if (activeInput === "password") setPassword((prev) => prev.slice(0, -1));
   };
 
   const addEmailDomain = (domain) => {
@@ -199,17 +176,20 @@ function SignIn() {
 
   return (
     <GradientBgImage>
+
       <div className="flex flex-col sm:flex-row justify-between items-center p-3 sm:p-5 gap-3 sm:gap-0">
         <AuthHeader
           backButtonRef={(el) => (focusableRefs.current[56] = el)}
           onBackClick={() => navigate(-1)}
+          showText={false}
         />
 
+
       </div>
-      <h2 className="text-4xl sm:text-4xl font-bold text-center text-white mt-4 sm:mt-6 px-4">User Login</h2>
+      <h2 className="text-4xl sm:text-4xl font-bold text-center text-white mt-4 sm:mt-6 px-4">Forgot Password</h2>
 
       <Fade>
-        <div className="flex flex-col xl:flex-row justify-center items-start gap-6 sm:gap-8 lg:gap-12 p-3 sm:p-6 mt-28 h-[498px]">
+        <div className="flex flex-col xl:flex-row justify-center items-start gap-6 sm:gap-8 lg:gap-12 p-3 sm:p-6 mt-28">
           <div className="flex flex-col items-center space-y-1 sm:space-y-2 w-[650px] h-[498px] order-2 xl:order-1">
             <CustomKeyboard
               handleKeyPress={handleKeyPress}
@@ -219,21 +199,23 @@ function SignIn() {
               isUpperCase={isUpperCase}
               focusableRefs={focusableRefs}
             />
-
-            <AuthActionRow
-              ref={focusableRefs}
-              loader={loader}
-              rememberEmail={rememberEmail}
-              setRememberEmail={setRememberEmail}
-              onSubmit={handleSubmit}
-            />
-
+            <div className="flex justify-start items-start w-full mt-20">
+              <button ref={(el) => (focusableRefs.current[2] = el)} type="submit" onClick={handleSubmit}
+                className="w-[235px] h-16 bg-orange rounded-xl text-white font-semibold text-[24px]
+        leading-[100%] tracking-[0] text-center transition-colors flex font-museo
+        items-center justify-center shadow-[0px_8px_48px_0px_rgba(225,124,0,0.5)]"
+              >
+                {loader ? <ClipLoader color="#fff" size={20} /> : "Submit Email"}
+              </button>
+            </div>
           </div>
 
+          <div className="bg-opacity-60 w-[650px] h-[498px] rounded-xl order-1 xl:order-2 relative p-6">
+            <p className="mb-8 text-white">
+              Forget your Password? Hassel not, we have got your back. Just enter your email we will send a password reset link to it.
+            </p>
 
-          <div className="bg-opacity-60 rounded-xl w-[650px] h-[498px] order-1 xl:order-2 relative flex flex-col">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-8">
-
+            <form onSubmit={handleSubmit} className="space-y-4">
               <Input
                 value={email}
                 placeholder="appuser@roopahala.co"
@@ -242,53 +224,12 @@ function SignIn() {
                 inputRef={(el) => (focusableRefs.current[0] = el)}
               />
 
-              <div className="relative">
-                <div
-                  ref={(el) => (focusableRefs.current[1] = el)}
-                  tabIndex={0}
-                  onFocus={() => setActiveInput("password")}
-                  className={`w-full h-[72px] bg-black border border-lightGray rounded-xl px-6 pr-12 text-white text-2xl cursor-text
-                     transition-all duration-300 outline-none flex items-center
-          ${activeInput === "password" ? "border-orangeHighlight shadow-[2px_2px_12px_0px_rgba(255,140,0,0.38)]" : ""}
-        `}
-                >
-                  {password ? (showPassword ? password : "•".repeat(password.length)) : "Your Password"}
-                </div>
-
-                <button
-                  ref={(el) => (focusableRefs.current[55] = el)}
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
-                >
-                  {showPassword ? "🙈" : "👁️"}
-                </button>
-              </div>
-
               {ErrorMessage && (
                 <div className="bg-red-600 text-white p-3 rounded text-sm">{ErrorMessage}</div>
               )}
             </form>
 
-            <div className="absolute bottom-8 right-6 text-right flex flex-col items-end gap-3">
-              <div className="flex flex-col gap-4">
-                <p className="text-white text-[20px] font-medium font-museo capitalize text-center leading-[140%]">
-                  Don’t have an account?
-                </p>
-
-                <Link
-                  ref={(el) => (focusableRefs.current[54] = el)}
-                  to="/signup"
-                  className="self-end inline-flex items-center justify-center w-[116px] h-[46px] bg-darkGray text-white text-[20px] font-semibold font-museo capitalize rounded-[8px] border
-                   border-lightGray hover:bg-lightGray transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                >
-                  Sign Up
-                </Link>
-              </div>
-
-              <AuthHelpText />
-
-            </div>
+            <AuthHelpText />
           </div>
 
         </div>
@@ -296,5 +237,3 @@ function SignIn() {
     </GradientBgImage>
   );
 }
-
-export default SignIn;

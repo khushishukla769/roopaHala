@@ -6,8 +6,8 @@ const Series = lazy(() => import("./Pages/Series"));
 const Search = lazy(() => import("./Pages/Search"));
 const Profile = lazy(() => import("./Pages/Profile"));
 const MyList = lazy(() => import("./Pages/MyList"));
-const SignIn = lazy(() => import("./Pages/SignIn"));
-const SignUp = lazy(() => import("./Pages/SignUp"));
+const SignIn = lazy(() => import("./Pages/Auth/SignIn"));
+const SignUp = lazy(() => import("./Pages/Auth/SignUp"));
 const Welcome = lazy(() => import("./Pages/Welcome"));
 const ErrorPage = lazy(() => import("./Pages/ErrorPage"));
 const Play = lazy(() => import("./Pages/Play"));
@@ -20,7 +20,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Loading from "./componets/Loading/Loading";
 import Navbar from "./componets/Header/Navbar";
 import NavbarWithoutUser from "./componets/Header/NavbarWithoutUser";
-import { ForgotPassword } from "./Pages/ForgotPassword";
+import { ForgotPassword } from "./Pages/Auth/ForgotPassword";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
 
 function App() {

@@ -61,9 +61,8 @@ function Navbar(props) {
         }
       >
         <nav
-          className={`transition duration-500 ease-in-out  ${
-            show && "transition duration-500 ease-in-out bg-black "
-          } `}
+          className={`transition duration-500 ease-in-out  ${show && "transition duration-500 ease-in-out bg-black "
+            } `}
         >
           <div className="px-4 mx-auto max-w-8xl sm:px-6 lg:px-8">
             <div className="flex items-center justify-between h-16">
