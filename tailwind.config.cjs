@@ -40,7 +40,9 @@ module.exports = {
         'orange': "#F34913",
         'orangeHighlight': "#F34913",
         'lightGray': "#3D3D3D",
-        'darkGray': '#262626'
+        'darkGray': '#262626',
+        'iconDefault': '#B0B0B0',
+        'greyButton': "#F6F6F6"
       },
       margin: {
         '-6%': "-6%",

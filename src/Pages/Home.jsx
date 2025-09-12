@@ -35,7 +35,7 @@ function Home() {
   return (
     <div>
       <Banner url={trending}></Banner>
-      <div className="w-[99%] ml-1">
+      <div>
         <RowPost first title="Trending" url={trending} key={trending}></RowPost>
         <RowPost title="Animated" url={Animated} key={Animated}></RowPost>
         {watchedMovies.length != 0 ? (
@@ -45,6 +45,7 @@ function Home() {
             key={"Watched Movies"}
           ></RowPost>
         ) : null}
+
         <RowPost
           title="Netflix Originals"
           islarge
@@ -62,6 +63,7 @@ function Home() {
         <RowPost title="Adventure" url={Adventure}></RowPost>
         <RowPost title="Horror" url={horror}></RowPost>
         <RowPost title="War" url={War}></RowPost>
+        <RowPost title="Roopa Hala top 10" url={War}></RowPost>
       </div>
       <Footer></Footer>
     </div>

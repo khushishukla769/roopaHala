@@ -7,7 +7,7 @@ import ReactPlayer from "react-player";
 import Plyr from "plyr-react";
 import "plyr-react/plyr.css";
 
-import Navbar from "../componets/Header/Navbar";
+import Sidebar from "../componets/Header/Sidebar";
 import Footer from "../componets/Footer/Footer";
 import useUpdateMylist from "../CustomHooks/useUpdateMylist";
 import useUpdateLikedMovies from "../CustomHooks/useUpdateLikedMovies";
@@ -98,7 +98,7 @@ function Play() {
 
   return (
     <div>
-      <Navbar playPage></Navbar>
+      <Sidebar playPage></Sidebar>
 
       {PopupMessage}
 

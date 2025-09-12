@@ -18,7 +18,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import { AuthContext } from "./Context/UserContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Loading from "./componets/Loading/Loading";
-import Navbar from "./componets/Header/Navbar";
+import Sidebar from "./componets/Header/Sidebar";
 import NavbarWithoutUser from "./componets/Header/NavbarWithoutUser";
 import { ForgotPassword } from "./Pages/Auth/ForgotPassword";
 import PrivacyPolicy from "./Pages/PrivacyPolicy";
@@ -35,7 +35,7 @@ function App() {
 
   return (
     <div>
-      {User ? <Navbar></Navbar> : <NavbarWithoutUser></NavbarWithoutUser>}
+      {User ? <Sidebar></Sidebar> : <NavbarWithoutUser></NavbarWithoutUser>}
       <Suspense replace fallback={<Loading />}>
         <Routes>
           <Route index path="/" element={User ? <Home /> : <Welcome />} />

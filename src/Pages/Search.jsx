@@ -46,7 +46,7 @@ function Search() {
   };
 
   return (
-    <div>
+    <div className="ml-36">
       {PopupMessage}
 
       <div className="flex justify-center mt-20 mb-8">

@@ -1,6 +1,4 @@
-import React from "react";
 import { useEffect, useState } from "react";
-
 import axios from "../../axios";
 import { imageUrl, imageUrl2, API_KEY } from "../../Constants/Constance";
 import useUpdateMylist from "../../CustomHooks/useUpdateMylist";
@@ -15,6 +13,8 @@ import useGenereConverter from "../../CustomHooks/useGenereConverter";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper";
+
+import top10movies from "../../images/Top10Movies.jpg";
 
 import "swiper/css";
 import "swiper/css/navigation";
@@ -34,6 +34,9 @@ function RowPost(props) {
   const [moviePopupInfo, setMoviePopupInfo] = useState({});
   const [shouldPop, setshouldPop] = useState(true);
   const [urlId, setUrlId] = useState("");
+
+  // Check if this is the "Roopa Hala top 10" section
+  const isTop10Section = props.title === "Roopa Hala top 10";
 
   useEffect(() => {
     if (props.movieData != null) {
@@ -89,17 +92,43 @@ function RowPost(props) {
     }
   };
 
+  // Dynamic styles based on whether it's the top 10 section
+  const containerStyles = isTop10Section
+    ? {
+      backgroundImage: `url(${top10movies})`,
+      backgroundSize: 'cover',
+      backgroundPosition: 'center',
+      backgroundRepeat: 'no-repeat',
+      width: '1920px',
+      height: '579px',
+      paddingTop: '30px',
+      paddingRight: '40px',
+      paddingBottom: '80px',
+      paddingLeft: '120px',
+      marginLeft: '0',
+      marginBottom: '40px',
+      opacity: 1,
+      marginTop: props.first ? "-8rem" : "",
+    }
+    : {
+      marginTop: props.first ? "-8rem" : "",
+    };
+
+  const containerClasses = isTop10Section
+    ? "mb-11 lg:mb-4 RowContainer top10-background"
+    : "ml-36 lg:ml-36 mb-11 lg:mb-4 RowContainer";
+
   return (
     <div
-      className="ml-2 lg:ml-11 mb-11 lg:mb-4 RowContainer"
-      style={{ marginTop: `${props.first ? "-8rem" : ""}` }}
+      className={containerClasses}
+      style={containerStyles}
     >
       {PopupMessage}
       {removePopupMessage}
 
       {movies[0] ? (
         <>
-          <h1 className="text-white pb-4 xl:pb-0 font-normal text-base sm:text-2xl md:text-4xl">
+          <h1 className={`text-white pb-4 xl:pb-0 font-normal text-base sm:text-2xl md:text-4xl`}>
             {props.title}
           </h1>
 
@@ -118,34 +147,21 @@ function RowPost(props) {
               const converted = convertGenere(obj.genre_ids);
               return (
                 <SwiperSlide
-                  className={props.islarge ? "large" : "bg-cover"}
+                  key={index}
+                  className="large"
                   onClick={() => handleMoviePopup(obj)}
                 >
-                  {props.islarge ? (
-                    <>
-                      <img
-                        className="rounded-sm"
-                        src={`${imageUrl + obj.poster_path}`}
-                      />
-                    </>
-                  ) : (
-                    <>
-                      <img
-                        loading="lazy"
-                        className={
-                          props.movieData != null
-                            ? "border-b-4 border-red-700 rounded-sm"
-                            : "rounded-sm"
-                        }
-                        src={
-                          obj.backdrop_path
-                            ? `${imageUrl2 + obj.backdrop_path}`
-                            : "https://i.ytimg.com/vi/Mwf--eGs05U/maxresdefault.jpg"
-                        }
-                        onClick={() => handleMoviePopup(obj)}
-                      />
-                    </>
-                  )}
+                  <img
+                    loading="lazy"
+                    className={
+                      props.movieData != null
+                        ? "border-b-4 border-orange rounded-sm"
+                        : "rounded-sm"
+                    }
+                    src={`${imageUrl + obj.poster_path}`}
+                    onClick={() => handleMoviePopup(obj)}
+                  />
+
                   <div className="content pt-16">
                     <Fade bottom duration={300}>
                       <div className="flex transition ml-3 ease-in-out delay-150">
@@ -282,9 +298,9 @@ function RowPost(props) {
                       </div>
 
                       {converted &&
-                        converted.map((genre) => {
+                        converted.map((genre, genreIndex) => {
                           return (
-                            <span className="hidden text-white ml-4 font-thin text-xs lg:inline">
+                            <span key={genreIndex} className="hidden text-white ml-4 font-thin text-xs lg:inline">
                               {genre}
                             </span>
                           );
@@ -461,10 +477,10 @@ function RowPost(props) {
 
                           <h1 className="flex text-neutral-400 text-sm leading-relaxed">
                             Genere :
-                            {convertGenere(moviePopupInfo.genre_ids).slice(0,2).map(
-                              (genere) => {
+                            {convertGenere(moviePopupInfo.genre_ids).slice(0, 2).map(
+                              (genere, genreIndex) => {
                                 return (
-                                  <span className="text-white ml-2 font-medium">
+                                  <span key={genreIndex} className="text-white ml-2 font-medium">
                                     {genere}
                                   </span>
                                 );

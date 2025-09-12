@@ -17,6 +17,7 @@ import WelcomePageBanner from "../images/WelcomePageBanner.jpg";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
+import GradientBgImage from "./GradientBgImage";
 
 function Profile() {
   const { User } = useContext(AuthContext);
@@ -134,15 +135,8 @@ function Profile() {
   };
 
   return (
-    <div>
-      <div
-        className="flex h-screen justify-center items-center"
-        style={{
-          backgroundImage: `url(${WelcomePageBanner})`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-        }}
-      >
+    <GradientBgImage>
+      <div className="flex h-screen justify-center items-center">
         {isMyListUpdated ? (
           <Toaster
             toastOptions={{
@@ -154,18 +148,16 @@ function Profile() {
             }}
           />
         ) : null}
+
         <Fade>
           <div className="bg-[#000000bf] p-5 md:p-12 rounded-md">
             <h1 className="text-4xl text-white font-bold mb-4 md:mb-8">
               Edit your Profile
             </h1>
+
             <div className="flex justify-center flex-col items-center md:flex-row md:items-start">
               <img
-                className={
-                  profilePic
-                    ? "h-28 w-28 rounded-full cursor-pointer mb-3 md:mr-16"
-                    : "h-28 w-28 rounded-full cursor-pointer mb-3 md:mr-16"
-                }
+                className="h-28 w-28 rounded-full cursor-pointer mb-3 md:mr-16"
                 src={
                   profilePic
                     ? `${profilePic}`
@@ -173,11 +165,11 @@ function Profile() {
                 }
                 alt="NETFLIX"
               />
+
               <div>
-                <hr className="mb-2 h-px bg-gray-500 border-0 dark:bg-gray-700"></hr>
-                <h1 className="text-white text-lg font-medium mb-2">
-                  User Name
-                </h1>
+                <hr className="mb-2 h-px bg-gray-500 border-0 dark:bg-gray-700" />
+
+                <h1 className="text-white text-lg font-medium mb-2">User Name</h1>
                 <input
                   type="text"
                   onChange={(e) =>
@@ -186,18 +178,22 @@ function Profile() {
                   className="block w-full rounded-md bg-stone-900 text-white border-gray-300 p-2 mb-6 focus:border-indigo-500 focus:ring-indigo-500 sm:text-base"
                   placeholder={User ? User.displayName : null}
                 />
+
                 <h1 className="text-white text-lg font-medium mb-2">Email</h1>
                 <h1 className="text-white text-xl bg-stone-900 p-2 rounded mb-4 md:pr-52">
                   {User ? User.email : null}
                 </h1>
+
                 <h1 className="text-white text-xl p-2 rounded mb-4">
                   Unique ID : {User ? User.uid : null}
                 </h1>
-                <hr className="h-px bg-gray-500 border-0 mb-4 md:mb-10 dark:bg-gray-700"></hr>
+
+                <hr className="h-px bg-gray-500 border-0 mb-4 md:mb-10 dark:bg-gray-700" />
 
                 <h1 className="text-white text-lg font-medium mb-4">
                   Who is Watching ?
                 </h1>
+
                 <div className="flex justify-between cursor-pointer mb-4 md:mb-8">
                   <img
                     onClick={() =>
@@ -235,12 +231,14 @@ function Profile() {
                     className="w-16 h-16 rounded-md cursor-pointer"
                     src="https://ih0.redbubble.net/image.618363037.0853/flat,1000x1000,075,f.u2.jpg"
                   />
+
                   <input
                     style={{ display: "none" }}
                     ref={inputRef}
                     type="file"
                     onChange={handleFileChange}
                   />
+
                   <svg
                     onClick={handleClick}
                     xmlns="http://www.w3.org/2000/svg"
@@ -257,15 +255,17 @@ function Profile() {
                     />
                   </svg>
                 </div>
+
                 {newProfielPicURL ? (
                   <img className="h-30 w-72" src={newProfielPicURL} />
                 ) : null}
               </div>
             </div>
+
             <div className="flex justify-between mt-4">
               <button
                 onClick={SignOut}
-                className="flex items-center border-[0.7px] border-white text-white font-medium sm:font-bold text-xs px-14 md:px-24 md:text-xl  py-3 rounded shadow hover:shadow-lg hover:bg-white hover:border-white hover:text-red-700 outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150"
+                className="flex items-center border-[0.7px] border-white text-white font-medium sm:font-bold text-xs px-14 md:px-24 md:text-xl py-3 rounded shadow hover:shadow-lg hover:bg-white hover:border-white hover:text-red-700 transition-all duration-150"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -283,10 +283,11 @@ function Profile() {
                 </svg>
                 SignOut
               </button>
-              {userName != "" || newProfielPic != "" ? (
+
+              {userName !== "" || newProfielPic !== "" ? (
                 <button
                   onClick={changeUserName}
-                  className="flex items-center bg-red-700 text-white font-medium sm:font-bold text-xs px-10 md:px-16 md:text-xl  py-3 rounded shadow hover:shadow-lg hover:bg-white hover:text-red-700 outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150"
+                  className="flex items-center bg-red-700 text-white font-medium sm:font-bold text-xs px-10 md:px-16 md:text-xl py-3 rounded shadow hover:shadow-lg hover:bg-white hover:text-red-700 transition-all duration-150"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -307,7 +308,7 @@ function Profile() {
               ) : (
                 <button
                   onClick={() => navigate("/")}
-                  className="flex items-center bg-red-700 text-white font-medium sm:font-bold text-xs px-10 md:px-16 md:text-xl  py-3 rounded shadow hover:shadow-lg hover:bg-white hover:text-red-700 outline-none focus:outline-none mr-3 mb-1 ease-linear transition-all duration-150"
+                  className="flex items-center bg-red-700 text-white font-medium sm:font-bold text-xs px-10 md:px-16 md:text-xl py-3 rounded shadow hover:shadow-lg hover:bg-white hover:text-red-700 transition-all duration-150"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -330,8 +331,9 @@ function Profile() {
           </div>
         </Fade>
       </div>
-    </div>
+    </GradientBgImage>
   );
+
 }
 
 export default Profile;
