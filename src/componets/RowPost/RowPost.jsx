@@ -35,7 +35,6 @@ function RowPost(props) {
   const [shouldPop, setshouldPop] = useState(true);
   const [urlId, setUrlId] = useState("");
 
-  // Check if this is the "Roopa Hala top 10" section
   const isTop10Section = props.title === "Roopa Hala top 10";
 
   useEffect(() => {
@@ -92,7 +91,6 @@ function RowPost(props) {
     }
   };
 
-  // Dynamic styles based on whether it's the top 10 section
   const containerStyles = isTop10Section
     ? {
       backgroundImage: `url(${top10movies})`,

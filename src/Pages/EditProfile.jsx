@@ -1,22 +1,13 @@
 import { useState, useRef, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+import Input from '../componets/CommonComponents/Input';
+import CustomKeyboard from '../componets/CustomKeyboard/CustomKeyboard';
+import GradientBgImage from "./GradientBgImage";
 import { Fade } from "react-reveal";
-import {
-  getAuth,
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-} from "firebase/auth";
-import { setDoc, doc } from "firebase/firestore";
-import { db } from "../../Firebase/FirebaseConfig";
-import GradientBgImage from "../GradientBgImage";
-import CustomKeyboard from "../../componets/CustomKeyboard/CustomKeyboard";
-import Input from "../../componets/CommonComponents/Input";
-import AuthHelpText from "../../componets/CommonComponents/HelpText";
-import { AuthHeader } from "../../componets/CommonComponents/AuthHeader";
-import { AuthActionRow } from "../../componets/CommonComponents/AuthActionRow";
+import { AuthHeader } from "../componets/CommonComponents/AuthHeader";
+import { AuthActionRow } from "../componets/CommonComponents/AuthActionRow";
 
-function SignUp() {
-
+export const EditProfile = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -25,13 +16,27 @@ function SignUp() {
   const [ErrorMessage, setErrorMessage] = useState("");
   const [loader, setLoader] = useState(false);
   const [activeInput, setActiveInput] = useState(null);
-  const [rememberEmail, setRememberEmail] = useState(false);
   const [isUpperCase, setIsUpperCase] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(56);
+  const [rememberEmail, setRememberEmail] = useState(false);
   const focusableRefs = useRef([]);
+  const backButtonRef = useRef(null);
+
+  useEffect(() => {
+    if (backButtonRef.current) {
+      backButtonRef.current.focus();
+    }
+  }, []);
+
+  const handleKey = (e) => {
+    if (e.key === 'Enter') {
+      navigate(-1);
+    }
+  }
 
   const navigate = useNavigate();
+
   const keyboardGrid = [
     [4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
     [14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
@@ -55,6 +60,15 @@ function SignUp() {
     const bottomOrder = [47, 2, 3, 53];
 
     switch (e.key) {
+      case "Backspace": {
+        if (backButtonRef.current) {
+          backButtonRef.current.click();
+        } else {
+          navigate(-1);
+        }
+        e.preventDefault();
+        break;
+      }
       case "ArrowLeft": {
         const firstKeys = [4, 14, 24, 34, 44, 47, 2];
 
@@ -182,31 +196,17 @@ function SignUp() {
     e.preventDefault();
     setLoader(true);
 
-    const auth = getAuth();
-    createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        onAuthStateChanged(auth, (user) => {
-          const EmptyArray = [];
-          setDoc(doc(db, "Users", user.uid), {
-            email,
-            Uid: user.uid,
-            firstName,
-            lastName,
-            phone,
-          }).then(() => {
-            setDoc(doc(db, "MyList", user.uid), { movies: EmptyArray }, { merge: true });
-            setDoc(doc(db, "WatchedMovies", user.uid), { movies: EmptyArray }, { merge: true });
-            setDoc(doc(db, "LikedMovies", user.uid), { movies: EmptyArray }, { merge: true });
-          });
-        });
+    console.log("Updating profile:", {
+      firstName,
+      lastName,
+      email,
+      phone,
+      password
+    });
 
-        const user = userCredential.user;
-        if (user) navigate("/");
-      })
-      .catch((error) => {
-        setLoader(false);
-        setErrorMessage(error.message);
-      });
+    setTimeout(() => {
+      setLoader(false);
+    }, 2000);
   };
 
   const handleKeyPress = (value) => {
@@ -244,129 +244,121 @@ function SignUp() {
 
   return (
     <GradientBgImage>
-      <div className="flex flex-col sm:flex-row justify-between items-center p-3 sm:p-5 gap-3 sm:gap-0">
-        <AuthHeader
-          backButtonRef={(el) => (focusableRefs.current[59] = el)}
-          onBackClick={() => navigate(-1)}
-          title="Sign-Up"
-          subtitle="Create your Roopa Hala Account"
-        />
-      </div>
-
-      <h2 className="text-4xl sm:text-4xl font-bold text-center text-white mt-4 sm:mt-6 px-4">Register New User</h2>
-
       <Fade>
-        <div className="flex flex-col xl:flex-row justify-center items-start gap-6 sm:gap-8 lg:gap-12 p-3 sm:p-6 h-[634px] mt-24">
-          <div className="flex flex-col items-center space-y-1 sm:space-y-2 w-[650px] h-[498px] order-2 xl:order-1">
+        <div className="p-10">
+          <AuthHeader
+            backButtonRef={backButtonRef}
+            onBackClick={() => navigate(-1)}
+            onKeyDown={handleKey}
+            showText={false}
+          />
+        </div>
 
-            <CustomKeyboard
-              handleKeyPress={handleKeyPress}
-              handleBackspace={handleBackspace}
-              addEmailDomain={addEmailDomain}
-              setIsUpperCase={setIsUpperCase}
-              isUpperCase={isUpperCase}
-              focusableRefs={focusableRefs}
-            />
+        <div className="flex justify-center mb-20">
+          <h1 className="text-4xl sm:text-4xl font-bold text-center text-white mt-4 sm:mt-6 px-4">
+            Edit Your Profile
+          </h1>
+        </div>
 
-            <AuthActionRow
-              ref={focusableRefs}
-              loader={loader}
-              rememberEmail={rememberEmail}
-              setRememberEmail={setRememberEmail}
-              onSubmit={handleSubmit}
-              submitText="Sign-Up"
-            />
-          </div>
+        <div className="flex items-start justify-center">
+          <div className="flex flex-col xl:flex-row justify-center items-center gap-6 sm:gap-8 lg:gap-12">
 
-          <div className="bg-opacity-60 rounded-xl w-[650px] h-[634px] order-1 xl:order-2 relative flex flex-col">
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                <Input
-                  value={firstName}
-                  placeholder="John"
-                  active={activeInput === "firstName"}
-                  onFocus={() => setActiveInput("firstName")}
-                  inputRef={(el) => (focusableRefs.current[56] = el)}
-                />
-
-                <Input
-                  value={lastName}
-                  placeholder="Smith"
-                  active={activeInput === "lastName"}
-                  onFocus={() => setActiveInput("lastName")}
-                  inputRef={(el) => (focusableRefs.current[57] = el)}
-                />
-              </div>
-
-              <Input
-                value={email}
-                placeholder="appuser@roopahala.co"
-                active={activeInput === "email"}
-                onFocus={() => setActiveInput("email")}
-                inputRef={(el) => (focusableRefs.current[0] = el)}
+            <div className="flex flex-col items-center space-y-1 sm:space-y-2 w-[650px] h-[498px] order-2 xl:order-1">
+              <CustomKeyboard
+                handleKeyPress={handleKeyPress}
+                handleBackspace={handleBackspace}
+                addEmailDomain={addEmailDomain}
+                setIsUpperCase={setIsUpperCase}
+                isUpperCase={isUpperCase}
+                focusableRefs={focusableRefs}
               />
 
-              <div className="relative">
-                <div
-                  ref={(el) => (focusableRefs.current[1] = el)}
-                  tabIndex={0}
-                  onFocus={() => setActiveInput("password")}
-                  className={`w-full h-[72px] bg-black border border-lightGray rounded-xl px-6 py-6 text-white text-2xl
-                  cursor-text transition-all duration-300 outline-none flex items-center ${activeInput === "password"
-                      ? "border-orangeHighlight shadow-[2px_2px_12px_0px_rgba(255,140,0,0.38)]" : ""}`}>
-                  {password
-                    ? showPassword
-                      ? password
-                      : "•".repeat(password.length)
-                    : "Your Password"}
+              <AuthActionRow
+                ref={focusableRefs}
+                loader={loader}
+                rememberEmail={rememberEmail}
+                setRememberEmail={setRememberEmail}
+                onSubmit={handleSubmit}
+                submitText={"Save"}
+              />
+
+            </div>
+
+            <div className="rounded-xl w-[650px] order-1 xl:order-2">
+              <form id="profile-form" onSubmit={handleSubmit} className="flex flex-col gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <Input
+                    value={firstName}
+                    placeholder="First Name"
+                    active={activeInput === "firstName"}
+                    onFocus={() => setActiveInput("firstName")}
+                    inputRef={(el) => (focusableRefs.current[56] = el)}
+                  />
+
+                  <Input
+                    value={lastName}
+                    placeholder="Last Name"
+                    active={activeInput === "lastName"}
+                    onFocus={() => setActiveInput("lastName")}
+                    inputRef={(el) => (focusableRefs.current[57] = el)}
+                  />
                 </div>
 
-                <button
-                  ref={(el) => (focusableRefs.current[55] = el)}
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
-                >
-                  {showPassword ? "🙈" : "👁️"}
-                </button>
-              </div>
+                <Input
+                  value={email}
+                  placeholder="Email Address"
+                  active={activeInput === "email"}
+                  onFocus={() => setActiveInput("email")}
+                  inputRef={(el) => (focusableRefs.current[0] = el)}
+                />
 
-              <Input
-                value={phone}
-                placeholder="1234567890"
-                active={activeInput === "phone"}
-                onFocus={() => setActiveInput("phone")}
-                inputRef={(el) => (focusableRefs.current[58] = el)}
-              />
+                <div className="relative">
+                  <div
+                    ref={(el) => (focusableRefs.current[1] = el)}
+                    tabIndex={0}
+                    onFocus={() => setActiveInput("password")}
+                    className={`w-full h-[72px] bg-black border border-lightGray rounded-xl px-6 py-6 text-white text-2xl
+                cursor-text transition-all duration-300 outline-none flex items-center ${activeInput === "password"
+                        ? "border-orangeHighlight shadow-[2px_2px_12px_0px_rgba(255,140,0,0.38)]"
+                        : ""
+                      }`}
+                  >
+                    {password
+                      ? showPassword
+                        ? password
+                        : "•".repeat(password.length)
+                      : "Your Password"}
+                  </div>
 
-              {ErrorMessage && (
-                <div className="bg-red-600 text-white p-3 rounded text-sm">{ErrorMessage}</div>
-              )}
+                  <button
+                    ref={(el) => (focusableRefs.current[55] = el)}
+                    type="button"
+                    onClick={() => setShowPassword(!showPassword)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
+                  >
+                    {showPassword ? "🙈" : "👁️"}
+                  </button>
+                </div>
 
-            </form>
+                <Input
+                  value={phone}
+                  placeholder="Phone Number"
+                  active={activeInput === "phone"}
+                  onFocus={() => setActiveInput("phone")}
+                  inputRef={(el) => (focusableRefs.current[58] = el)}
+                />
 
-            <div className="absolute bottom-8 right-6 text-right flex flex-col items-end gap-3">
-              <div className="flex flex-col gap-4">
-                <p className="text-[20px] fotext-common capitalize text-center leading-[140%]">
-                  Already a member?</p>
-                <Link
-                  ref={(el) => (focusableRefs.current[54] = el)}
-                  to="/signin"
-                  className="self-end inline-flex items-center justify-center w-[116px] h-[46px] bg-darkGray text-[20px]
-                  text-common capitalize rounded-[8px] border border-lightGray hover:bg-lightGray transition focus:outline-none
-                  focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
-                >
-                  Sign In
-                </Link>
-              </div>
-              <AuthHelpText />
+                {ErrorMessage && (
+                  <div className="bg-red-600 text-white p-3 rounded text-sm">
+                    {ErrorMessage}
+                  </div>
+                )}
+              </form>
             </div>
           </div>
-
         </div>
       </Fade>
+
     </GradientBgImage>
   );
-}
-
-export default SignUp;
+};

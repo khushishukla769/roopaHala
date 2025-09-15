@@ -18,10 +18,10 @@ export const AuthHeader = ({ backButtonRef, onBackClick, onKeyDown, showText = t
       <div className="flex items-center gap-4 flex-1">
         <BackButton inputRef={backButtonRef} onClick={onBackClick} onKeyDown={onKeyDown} />
         {showText && <div className="flex flex-col">
-          <h1 className="text-base sm:text-xl font-semibold text-white font-museo">
+          <h1 className="text-base sm:text-xl text-common">
             Sign-In to your Roopa Hala Account
           </h1>
-          <p className="text-xs sm:text-xl opacity-80 text-white font-museo">
+          <p className="text-xs sm:text-xl opacity-80 text-common">
             Sri Lanka's Premier & Largest Sinhala Movie Platform
           </p>
         </div>}

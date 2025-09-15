@@ -42,7 +42,8 @@ module.exports = {
         'lightGray': "#3D3D3D",
         'darkGray': '#262626',
         'iconDefault': '#B0B0B0',
-        'greyButton': "#F6F6F6"
+        'greyButton': "#F6F6F6",
+        'subsGray': "#838383"
       },
       margin: {
         '-6%': "-6%",

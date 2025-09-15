@@ -34,7 +34,7 @@ const PrivacyPolicy = () => {
 
         <div className="flex-1 flex flex-col justify-center items-center w-full">
           <div className="max-w-4xl w-full flex flex-col items-start">
-            <h1 className="text-4xl sm:text-4xl font-semibold mb-8 text-left font-museo text-white">
+            <h1 className="text-4xl sm:text-4xl  mb-8 text-left text-common">
               Privacy Policy
             </h1>
 

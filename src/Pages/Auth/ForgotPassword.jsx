@@ -6,7 +6,6 @@ import GradientBgImage from "../GradientBgImage";
 import CustomKeyboard from "../../componets/CustomKeyboard/CustomKeyboard";
 import Input from "../../componets/CommonComponents/Input";
 import AuthHelpText from "../../componets/CommonComponents/HelpText";
-import { AuthHeader } from "../../componets/CommonComponents/AuthHeader";
 
 export const ForgotPassword = () => {
   const navigate = useNavigate();
@@ -176,16 +175,6 @@ export const ForgotPassword = () => {
 
   return (
     <GradientBgImage>
-
-      <div className="flex flex-col sm:flex-row justify-between items-center p-3 sm:p-5 gap-3 sm:gap-0">
-        <AuthHeader
-          backButtonRef={(el) => (focusableRefs.current[56] = el)}
-          onBackClick={() => navigate(-1)}
-          showText={false}
-        />
-
-
-      </div>
       <h2 className="text-4xl sm:text-4xl font-bold text-center text-white mt-4 sm:mt-6 px-4">Forgot Password</h2>
 
       <Fade>
@@ -201,8 +190,8 @@ export const ForgotPassword = () => {
             />
             <div className="flex justify-start items-start w-full mt-20">
               <button ref={(el) => (focusableRefs.current[2] = el)} type="submit" onClick={handleSubmit}
-                className="w-[235px] h-16 bg-orange rounded-xl text-white font-semibold text-[24px]
-        leading-[100%] tracking-[0] text-center transition-colors flex font-museo
+                className="w-[235px] h-16 bg-orange rounded-xl text-common text-[24px]
+        leading-[100%] tracking-[0] text-center transition-colors flex
         items-center justify-center shadow-[0px_8px_48px_0px_rgba(225,124,0,0.5)]"
               >
                 {loader ? <ClipLoader color="#fff" size={20} /> : "Submit Email"}

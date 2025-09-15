@@ -150,8 +150,8 @@ function Banner(props) {
 
                   <button
                     onClick={() => handleMoviePopup(movie)}
-                    className="bg-lightGray flex items-center shadow-2xl mb-3 mr-3 text-base sm:text-xl font-semibold text-white hover:bg-white
-                     hover:text-black transition duration-500 ease-in-out py-2 px-8 rounded-xl font-museo"
+                    className="bg-lightGray flex items-center shadow-2xl mb-3 mr-3 text-base sm:text-xl text-common hover:bg-white
+                     hover:text-black transition duration-500 ease-in-out py-2 px-8 rounded-xl"
                   >
                     More Info
                   </button>
@@ -171,8 +171,8 @@ function Banner(props) {
                     <FaPlayCircle className="w-5 h-5" />
                     Play
                   </button>
-                  <button className="bg-lightGray flex items-center shadow-2xl mb-3 mr-3 text-base sm:text-xl font-semibold text-white hover:bg-white
-                     hover:text-black transition duration-500 ease-in-out py-2 px-8 rounded-xl font-museo"
+                  <button className="bg-lightGray flex items-center shadow-2xl mb-3 mr-3 text-base sm:text-xl  hover:bg-white
+                     hover:text-black transition duration-500 ease-in-out py-2 px-8 rounded-xl text-common"
                   >
                     More Info
                   </button>

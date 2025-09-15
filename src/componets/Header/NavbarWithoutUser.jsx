@@ -105,7 +105,7 @@ function NavbarWithoutUser() {
 
           <button
             ref={getStartedRef}
-            className="w-[198px] bg-orange h-16 sm:h-16 rounded-xl text-white font-bold transition-colors flex items-center font-museo
+            className="w-[198px] bg-orange h-16 sm:h-16 rounded-xl  font-bold transition-colors flex items-center text-common
              justify-center shadow-[0px_8px_48px_0px_rgba(225,124,0,0.5)] focus:outline-none focus:ring-2 focus:ring-orange text-2xl"
             tabIndex={0}
           >

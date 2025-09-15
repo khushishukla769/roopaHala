@@ -12,7 +12,7 @@ function Welcome() {
             className="h-[120px] w-[300px] mx-auto mb-10"
             alt="Roopa Hala Icon"
           />
-          <p className="mb-3 text-2xl sm:text-3xl md:text-4xl font-semibold text-white font-museo leading-[1.4] break-words">
+          <p className="mb-3 text-2xl sm:text-3xl md:text-4xl text-common leading-[1.4] break-words">
             "Experience the Best of Sinhala Cinema Anytime, Anywhere!"
           </p>
         </Fade>

@@ -52,7 +52,7 @@ function Sidebar() {
 
   return (
     <aside
-      className="fixed top-0 left-0 h-[924px] w-[170px] flex flex-col justify-between pt-10 pr-20 pb-10 pl-10"
+      className="fixed top-0 left-0 h-[924px] z-40 w-[170px] flex flex-col justify-between pt-10 pr-20 pb-10 pl-10"
       style={{
         background: "linear-gradient(90deg, #000000 34%, rgba(0,0,0,0) 100%)",
         opacity: 1,

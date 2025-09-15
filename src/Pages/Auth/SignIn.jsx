@@ -272,14 +272,14 @@ function SignIn() {
 
             <div className="absolute bottom-8 right-6 text-right flex flex-col items-end gap-3">
               <div className="flex flex-col gap-4">
-                <p className="text-white text-[20px] font-medium font-museo capitalize text-center leading-[140%]">
+                <p className="text-[20px] text-common capitalize text-center leading-[140%]">
                   Don’t have an account?
                 </p>
 
                 <Link
                   ref={(el) => (focusableRefs.current[54] = el)}
                   to="/signup"
-                  className="self-end inline-flex items-center justify-center w-[116px] h-[46px] bg-darkGray text-white text-[20px] font-semibold font-museo capitalize rounded-[8px] border
+                  className="self-end inline-flex items-center justify-center w-[116px] h-[46px] bg-darkGray text-[20px] text-common capitalize rounded-[8px] border
                    border-lightGray hover:bg-lightGray transition focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-black"
                 >
                   Sign Up
