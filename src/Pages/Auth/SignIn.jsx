@@ -11,6 +11,7 @@ import { AuthHeader } from "../../componets/CommonComponents/AuthHeader";
 
 function SignIn() {
   const navigate = useNavigate();
+  const backButtonRef = useRef(null);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -39,20 +40,31 @@ function SignIn() {
     }
   }, [focusedIndex]);
 
+  const handleBackButtonKey = (e) => {
+    if (e.key === "Enter") {
+      navigate(-1);
+    }
+  };
+
   const handleRemoteKey = (e) => {
+    if (e.key === "Backspace") {
+      if (backButtonRef.current) {
+        backButtonRef.current.click();
+      } else {
+        navigate(-1);
+      }
+      e.preventDefault();
+      return;
+    }
+
     let rowIndex = keyboardGrid.findIndex(row => row.includes(focusedIndex));
     let colIndex = rowIndex !== -1 ? keyboardGrid[rowIndex].indexOf(focusedIndex) : -1;
 
-    const formOrder = [56, 0, 1, 55, 54];
+    const formOrder = [0, 1, 55, 54];
     const bottomOrder = [47, 2, 3, 53];
 
     switch (e.key) {
       case "ArrowRight":
-        if (focusedIndex === 56) {
-          setFocusedIndex(4);
-          e.preventDefault();
-          break;
-        }
         if (rowIndex !== -1) {
           if (colIndex < keyboardGrid[rowIndex].length - 1) {
             setFocusedIndex(keyboardGrid[rowIndex][colIndex + 1]);
@@ -66,19 +78,11 @@ function SignIn() {
           } else {
             setFocusedIndex(0);
           }
-        } else {
         }
         e.preventDefault();
         break;
 
       case "ArrowLeft":
-        const firstKeys = [4, 14, 24, 34, 44, 47, 2];
-        if (firstKeys.includes(focusedIndex)) {
-          setFocusedIndex(56);
-          e.preventDefault();
-          break;
-        }
-
         if (rowIndex !== -1 && colIndex > 0) {
           setFocusedIndex(keyboardGrid[rowIndex][colIndex - 1]);
         } else if (formOrder.includes(focusedIndex)) {
@@ -91,11 +95,6 @@ function SignIn() {
         break;
 
       case "ArrowDown":
-        if (focusedIndex === 56) {
-          setFocusedIndex(4);
-          e.preventDefault();
-          break;
-        }
         if (rowIndex !== -1) {
           if (focusedIndex === 47) {
             setFocusedIndex(2);
@@ -120,11 +119,6 @@ function SignIn() {
         break;
 
       case "ArrowUp":
-        if (focusedIndex === 56) {
-          setFocusedIndex(4);
-          e.preventDefault();
-          break;
-        }
         if (rowIndex !== -1) {
           if (rowIndex > 0) {
             const prevIndex =
@@ -201,10 +195,10 @@ function SignIn() {
     <GradientBgImage>
       <div className="flex flex-col sm:flex-row justify-between items-center p-3 sm:p-5 gap-3 sm:gap-0">
         <AuthHeader
-          backButtonRef={(el) => (focusableRefs.current[56] = el)}
+          backButtonRef={backButtonRef}
           onBackClick={() => navigate(-1)}
+          onKeyDown={handleBackButtonKey}
         />
-
       </div>
       <h2 className="text-4xl sm:text-4xl font-bold text-center text-white mt-4 sm:mt-6 px-4">User Login</h2>
 
@@ -236,34 +230,23 @@ function SignIn() {
 
               <Input
                 value={email}
-                placeholder="appuser@roopahala.co"
+                label="Enter Email/mobile"
                 active={activeInput === "email"}
                 onFocus={() => setActiveInput("email")}
                 inputRef={(el) => (focusableRefs.current[0] = el)}
               />
 
-              <div className="relative">
-                <div
-                  ref={(el) => (focusableRefs.current[1] = el)}
-                  tabIndex={0}
-                  onFocus={() => setActiveInput("password")}
-                  className={`w-full h-[72px] bg-black border border-lightGray rounded-xl px-6 pr-12 text-white text-2xl cursor-text
-                     transition-all duration-300 outline-none flex items-center
-          ${activeInput === "password" ? "border-orangeHighlight shadow-[2px_2px_12px_0px_rgba(255,140,0,0.38)]" : ""}
-        `}
-                >
-                  {password ? (showPassword ? password : "•".repeat(password.length)) : "Your Password"}
-                </div>
-
-                <button
-                  ref={(el) => (focusableRefs.current[55] = el)}
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
-                >
-                  {showPassword ? "🙈" : "👁️"}
-                </button>
-              </div>
+              <Input
+                value={password}
+                label="Password"
+                type="password"
+                showPasswordToggle
+                active={activeInput === "password"}
+                onFocus={() => setActiveInput("password")}
+                inputRef={(el) => (focusableRefs.current[1] = el)}
+                eyeButtonRef={(el) => (focusableRefs.current[55] = el)}
+                onChange={(e) => setPassword(e.target.value)}
+              />
 
               {ErrorMessage && (
                 <div className="bg-red-600 text-white p-3 rounded text-sm">{ErrorMessage}</div>
@@ -273,7 +256,7 @@ function SignIn() {
             <div className="absolute bottom-8 right-6 text-right flex flex-col items-end gap-3">
               <div className="flex flex-col gap-4">
                 <p className="text-[20px] text-common capitalize text-center leading-[140%]">
-                  Don’t have an account?
+                  Don't have an account?
                 </p>
 
                 <Link

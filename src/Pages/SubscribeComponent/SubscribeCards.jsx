@@ -1,7 +1,9 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 
 export const SubscribeCards = () => {
-  const [activeInput, setActiveInput] = useState(null);
+  const [activeInput, setActiveInput] = useState(0);
+  const cardRefs = useRef([]);
+
   const DataInCard = [
     {
       price: "$5.25",
@@ -64,22 +66,56 @@ export const SubscribeCards = () => {
       ],
     },
   ];
+
+  useEffect(() => {
+    if (cardRefs.current[0]) {
+      cardRefs.current[0].focus();
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === "ArrowRight") {
+        setActiveInput((prev) => {
+          const next = Math.min(prev + 1, DataInCard.length - 1);
+          cardRefs.current[next]?.focus();
+          return next;
+        });
+      } else if (e.key === "ArrowLeft") {
+        setActiveInput((prev) => {
+          const prevIndex = Math.max(prev - 1, 0);
+          cardRefs.current[prevIndex]?.focus();
+          return prevIndex;
+        });
+      } else if (e.key === "Enter") {
+        const activeCard = cardRefs.current[activeInput];
+        if (activeCard) {
+          const subscribeBtn = activeCard.querySelector("button");
+          subscribeBtn?.click();
+        }
+      }
+    };
+
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
+  }, [activeInput]);
+
   return (
     <div className="flex justify-center gap-6 p-8">
       {DataInCard.map((item, index) => (
         <div
           key={index}
+          ref={(el) => (cardRefs.current[index] = el)}
           tabIndex={0}
           onClick={() => setActiveInput(index)}
           onFocus={() => setActiveInput(index)}
           className={`relative w-[416px] h-[556px] rounded-[28px] p-8
-      bg-[#3D3D3D80] backdrop-blur-[4px]
-      shadow-[2px_2px_16px_0px_rgba(0,0,0,0.08)]
-      flex flex-col justify-between text-white
-      cursor-pointer transition-all
-      outline-none
-      ${activeInput === index
-              ? "border-2 border-orange shadow-[0_0_16px_0px_#E17C00,0_0_0px_400px_#00000080_inset]"
+            bg-[#3D3D3D80] backdrop-blur-[4px]
+            flex flex-col justify-between text-white
+            cursor-pointer transition-all
+            outline-none
+            ${activeInput === index
+              ? "border-2 border-orange shadow-[0_0_16px_0px_#E17C00,0_0_200px_400px_#00000080_inset]"
               : "border-2 border-transparent"
             }`}
         >
@@ -114,6 +150,7 @@ export const SubscribeCards = () => {
           <button
             className={`w-[143px] h-[52px] sm:w-[143px] rounded-xl text-xl text-common transition-colors flex items-center justify-center focus:outline-none focus:ring-2 focus:ring-orange ${activeInput === index ? "bg-orange" : "bg-lightGray"
               }`}
+            onClick={() => alert(`Subscribed: ${item.subscriptionTitle}`)}
           >
             Subscribe
           </button>
@@ -121,4 +158,4 @@ export const SubscribeCards = () => {
       ))}
     </div>
   );
-}
+};

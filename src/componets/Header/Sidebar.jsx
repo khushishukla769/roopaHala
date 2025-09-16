@@ -1,30 +1,27 @@
-import React, { useContext, useRef, useEffect } from "react";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-import { getAuth, signOut } from "firebase/auth";
-import { AuthContext } from "../../Context/UserContext";
+import { useRef, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import videoIcon from "../../images/VideoIcon.png";
 import TitleImage from "../../images/TitleImage.png";
-import { PiHouseDuotone, PiHouseFill, PiShapesFill } from "react-icons/pi";
+import { PiHouseDuotone, PiHouseFill, PiShapesFill, PiShapesBold } from "react-icons/pi";
 import { FiTv } from "react-icons/fi";
 import { BiSolidTv } from "react-icons/bi";
 import { RiSearchFill, RiSearchLine } from "react-icons/ri";
 import { MdMovieCreation, MdOutlineMovie } from "react-icons/md";
-import { PiShapesBold } from "react-icons/pi";
 import { FaRegCircleUser } from "react-icons/fa6";
 import { FaUserCircle } from "react-icons/fa";
 import { useLocation } from "react-router-dom";
 
 function Sidebar() {
-  const { User } = useContext(AuthContext);
   const navigate = useNavigate();
   const location = useLocation();
   const navRefs = useRef([]);
 
   useEffect(() => {
-    if (navRefs.current[0]) {
-      navRefs.current[0].focus();
+    const activeIndex = navItems.findIndex((item) => item.to === location.pathname);
+    if (activeIndex !== -1 && navRefs.current[activeIndex]) {
+      navRefs.current[activeIndex].focus();
     }
-  }, []);
+  }, [location.pathname]);
 
   const handleKeyDown = (e, index) => {
     if (e.key === "ArrowDown") {
@@ -52,7 +49,7 @@ function Sidebar() {
 
   return (
     <aside
-      className="fixed top-0 left-0 h-[924px] z-40 w-[170px] flex flex-col justify-between pt-10 pr-20 pb-10 pl-10"
+      className="fixed top-0 left-0 h-full z-40 w-[170px] flex flex-col justify-between pt-10 pr-20 pb-10 pl-10"
       style={{
         background: "linear-gradient(90deg, #000000 34%, rgba(0,0,0,0) 100%)",
         opacity: 1,

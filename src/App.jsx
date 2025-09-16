@@ -14,7 +14,7 @@ const Play = lazy(() => import("./Pages/Play"));
 const LikedMovies = lazy(() => import("./Pages/LikedMovies"));
 const History = lazy(() => import("./Pages/History"));
 
-import { Routes, Route, Navigate, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import { AuthContext } from "./Context/UserContext";
 import { getAuth, onAuthStateChanged } from "firebase/auth";
 import Loading from "./componets/Loading/Loading";
@@ -40,7 +40,6 @@ function App() {
   }, []);
 
   useEffect(() => {
-    console.log("Current hash path:", location.pathname);
   }, [location]);
 
   if (loadingAuth) {
@@ -51,7 +50,7 @@ function App() {
   const shouldShowSidebar = User && !hideSidebarOn.includes(location.pathname);
 
   return (
-    <div>
+    <div className="h-screen overflow-y-auto overflow-x-hidden focus:outline-none">
       {shouldShowSidebar && <Sidebar />}
 
       {!User && <NavbarWithoutUser />}

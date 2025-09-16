@@ -285,11 +285,12 @@ export const EditProfile = () => {
             </div>
 
             <div className="rounded-xl w-[650px] order-1 xl:order-2">
+              <div className="h-32 w-32 bg-white mb-10"></div>
               <form id="profile-form" onSubmit={handleSubmit} className="flex flex-col gap-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <Input
                     value={firstName}
-                    placeholder="First Name"
+                    label="First Name"
                     active={activeInput === "firstName"}
                     onFocus={() => setActiveInput("firstName")}
                     inputRef={(el) => (focusableRefs.current[56] = el)}
@@ -297,7 +298,7 @@ export const EditProfile = () => {
 
                   <Input
                     value={lastName}
-                    placeholder="Last Name"
+                    label="Last Name"
                     active={activeInput === "lastName"}
                     onFocus={() => setActiveInput("lastName")}
                     inputRef={(el) => (focusableRefs.current[57] = el)}
@@ -306,43 +307,27 @@ export const EditProfile = () => {
 
                 <Input
                   value={email}
-                  placeholder="Email Address"
+                  label="Enter Email/mobile"
                   active={activeInput === "email"}
                   onFocus={() => setActiveInput("email")}
                   inputRef={(el) => (focusableRefs.current[0] = el)}
                 />
 
-                <div className="relative">
-                  <div
-                    ref={(el) => (focusableRefs.current[1] = el)}
-                    tabIndex={0}
-                    onFocus={() => setActiveInput("password")}
-                    className={`w-full h-[72px] bg-black border border-lightGray rounded-xl px-6 py-6 text-white text-2xl
-                cursor-text transition-all duration-300 outline-none flex items-center ${activeInput === "password"
-                        ? "border-orangeHighlight shadow-[2px_2px_12px_0px_rgba(255,140,0,0.38)]"
-                        : ""
-                      }`}
-                  >
-                    {password
-                      ? showPassword
-                        ? password
-                        : "•".repeat(password.length)
-                      : "Your Password"}
-                  </div>
-
-                  <button
-                    ref={(el) => (focusableRefs.current[55] = el)}
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
-                  >
-                    {showPassword ? "🙈" : "👁️"}
-                  </button>
-                </div>
+                <Input
+                  value={password}
+                  label="Password"
+                  type="password"
+                  showPasswordToggle
+                  active={activeInput === "password"}
+                  onFocus={() => setActiveInput("password")}
+                  inputRef={(el) => (focusableRefs.current[1] = el)}
+                  eyeButtonRef={(el) => (focusableRefs.current[55] = el)}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
 
                 <Input
                   value={phone}
-                  placeholder="Phone Number"
+                  label="Phone Number"
                   active={activeInput === "phone"}
                   onFocus={() => setActiveInput("phone")}
                   inputRef={(el) => (focusableRefs.current[58] = el)}

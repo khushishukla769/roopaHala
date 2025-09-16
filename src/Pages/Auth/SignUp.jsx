@@ -30,8 +30,10 @@ function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const [focusedIndex, setFocusedIndex] = useState(56);
   const focusableRefs = useRef([]);
+  const backButtonRef = useRef(null);
 
   const navigate = useNavigate();
+
   const keyboardGrid = [
     [4, 5, 6, 7, 8, 9, 10, 11, 12, 13],
     [14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
@@ -48,22 +50,23 @@ function SignUp() {
   }, [focusedIndex]);
 
   const handleRemoteKey = (e) => {
-    let rowIndex = keyboardGrid.findIndex(row => row.includes(focusedIndex));
-    let colIndex = rowIndex !== -1 ? keyboardGrid[rowIndex].indexOf(focusedIndex) : -1;
+    let rowIndex = keyboardGrid.findIndex((row) => row.includes(focusedIndex));
+    let colIndex =
+      rowIndex !== -1 ? keyboardGrid[rowIndex].indexOf(focusedIndex) : -1;
 
     const formOrder = [56, 57, 0, 1, 55, 58, 54];
     const bottomOrder = [47, 2, 3, 53];
+    if (e.key === "Backspace") {
+      if (backButtonRef.current) {
+        backButtonRef.current.click();
+      } else {
+        navigate(-1);
+      }
+      e.preventDefault();
+    }
 
     switch (e.key) {
       case "ArrowLeft": {
-        const firstKeys = [4, 14, 24, 34, 44, 47, 2];
-
-        if (firstKeys.includes(focusedIndex)) {
-          setFocusedIndex(59);
-          e.preventDefault();
-          break;
-        }
-
         if (rowIndex !== -1 && colIndex > 0) {
           setFocusedIndex(keyboardGrid[rowIndex][colIndex - 1]);
         } else if (focusedIndex === 57) {
@@ -79,12 +82,6 @@ function SignUp() {
       }
 
       case "ArrowRight":
-        if (focusedIndex === 59) {
-          setFocusedIndex(4);
-          e.preventDefault();
-          break;
-        }
-
         if (rowIndex !== -1) {
           if (colIndex < keyboardGrid[rowIndex].length - 1) {
             setFocusedIndex(keyboardGrid[rowIndex][colIndex + 1]);
@@ -100,18 +97,13 @@ function SignUp() {
           }
         } else if (bottomOrder.includes(focusedIndex)) {
           const pos = bottomOrder.indexOf(focusedIndex);
-          if (pos < bottomOrder.length - 1) setFocusedIndex(bottomOrder[pos + 1]);
+          if (pos < bottomOrder.length - 1)
+            setFocusedIndex(bottomOrder[pos + 1]);
         }
         e.preventDefault();
         break;
 
       case "ArrowDown":
-        if (focusedIndex === 59) {
-          setFocusedIndex(4);
-          e.preventDefault();
-          break;
-        }
-
         if (rowIndex !== -1) {
           if (focusedIndex === 47) {
             setFocusedIndex(2);
@@ -136,12 +128,6 @@ function SignUp() {
         break;
 
       case "ArrowUp":
-        if (focusedIndex === 59) {
-          setFocusedIndex(4);
-          e.preventDefault();
-          break;
-        }
-
         if (rowIndex !== -1) {
           if (rowIndex > 0) {
             const prevIndex =
@@ -246,7 +232,7 @@ function SignUp() {
     <GradientBgImage>
       <div className="flex flex-col sm:flex-row justify-between items-center p-3 sm:p-5 gap-3 sm:gap-0">
         <AuthHeader
-          backButtonRef={(el) => (focusableRefs.current[59] = el)}
+          backButtonRef={backButtonRef}
           onBackClick={() => navigate(-1)}
           title="Sign-Up"
           subtitle="Create your Roopa Hala Account"
@@ -283,7 +269,7 @@ function SignUp() {
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <Input
                   value={firstName}
-                  placeholder="John"
+                  label="First Name"
                   active={activeInput === "firstName"}
                   onFocus={() => setActiveInput("firstName")}
                   inputRef={(el) => (focusableRefs.current[56] = el)}
@@ -291,7 +277,7 @@ function SignUp() {
 
                 <Input
                   value={lastName}
-                  placeholder="Smith"
+                  label="Last Name"
                   active={activeInput === "lastName"}
                   onFocus={() => setActiveInput("lastName")}
                   inputRef={(el) => (focusableRefs.current[57] = el)}
@@ -300,40 +286,27 @@ function SignUp() {
 
               <Input
                 value={email}
-                placeholder="appuser@roopahala.co"
+                label="Enter Email/mobile"
                 active={activeInput === "email"}
                 onFocus={() => setActiveInput("email")}
                 inputRef={(el) => (focusableRefs.current[0] = el)}
               />
 
-              <div className="relative">
-                <div
-                  ref={(el) => (focusableRefs.current[1] = el)}
-                  tabIndex={0}
-                  onFocus={() => setActiveInput("password")}
-                  className={`w-full h-[72px] bg-black border border-lightGray rounded-xl px-6 py-6 text-white text-2xl
-                  cursor-text transition-all duration-300 outline-none flex items-center ${activeInput === "password"
-                      ? "border-orangeHighlight shadow-[2px_2px_12px_0px_rgba(255,140,0,0.38)]" : ""}`}>
-                  {password
-                    ? showPassword
-                      ? password
-                      : "•".repeat(password.length)
-                    : "Your Password"}
-                </div>
-
-                <button
-                  ref={(el) => (focusableRefs.current[55] = el)}
-                  type="button"
-                  onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white"
-                >
-                  {showPassword ? "🙈" : "👁️"}
-                </button>
-              </div>
+              <Input
+                value={password}
+                label="Password"
+                type="password"
+                showPasswordToggle
+                active={activeInput === "password"}
+                onFocus={() => setActiveInput("password")}
+                inputRef={(el) => (focusableRefs.current[1] = el)}
+                eyeButtonRef={(el) => (focusableRefs.current[55] = el)}
+                onChange={(e) => setPassword(e.target.value)}
+              />
 
               <Input
                 value={phone}
-                placeholder="1234567890"
+                label="Phone Number"
                 active={activeInput === "phone"}
                 onFocus={() => setActiveInput("phone")}
                 inputRef={(el) => (focusableRefs.current[58] = el)}
@@ -347,7 +320,7 @@ function SignUp() {
 
             <div className="absolute bottom-8 right-6 text-right flex flex-col items-end gap-3">
               <div className="flex flex-col gap-4">
-                <p className="text-[20px] fotext-common capitalize text-center leading-[140%]">
+                <p className="text-[20px] text-common capitalize text-center leading-[140%]">
                   Already a member?</p>
                 <Link
                   ref={(el) => (focusableRefs.current[54] = el)}
@@ -362,7 +335,6 @@ function SignUp() {
               <AuthHelpText />
             </div>
           </div>
-
         </div>
       </Fade>
     </GradientBgImage>
